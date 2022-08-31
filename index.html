@@ -20,7 +20,14 @@
                 <h2 class="mb-4">Todo</h2>
 
                 <div id="todo-list">
-
+                    <div class="task" id="task-${task.id}">
+                        <span class="priority"></span>
+                        <label for="task-checkbox-${task.id}" class="title">
+                            First Task
+                            <i class="bi-pencil"></i>
+                        </label>
+                        <input id="task-checkbox-${task.id}" data-id="${task.id}" type="checkbox">
+                    </div>
                 </div>
 
 
@@ -49,8 +56,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn" id="deleteModalButton" style="display: none;" >Elimina</button>
- 
+                        <button type="button" class="btn" id="deleteModalButton" style="display: none;">Elimina</button>
+
                         <button type="button" class="btn btn-secondary" id="closeModalButton">Annulla</button>
                         <button type="button" class="btn btn-primary" id="saveTaskButton">Salva</button>
 
