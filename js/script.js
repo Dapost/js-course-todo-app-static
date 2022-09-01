@@ -1,37 +1,13 @@
-let tasks = [{
-        id: "1",
-        title: "Brainstorming amazing project",
-        priority: false,
-        done: false,
-    },
-    {
-        id: "2",
-        title: "Merge branches on repository",
-        priority: true,
-        done: false,
-    },
-    {
-        id: "3",
-        title: "Schedule daily meeting",
-        priority: true,
-        done: false,
-    },
-    {
-        id: "4",
-        title: "Send mail to John",
-        priority: false,
-        done: false,
-    },
-    {
-        id: "5",
-        title: "Fix code on personal site",
-        priority: true,
-        done: true,
-    }
-]
+let tasks = []
 
 
-drawTasks();
+init();
+
+function init(){
+    tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    drawTasks();
+}
+
 
 function drawTasks() {
     const todoContainer = document.querySelector('#todo-list');
@@ -94,6 +70,7 @@ function drawTaskNode(task) {
 
     input.addEventListener('change', () => {
         task.done = input.checked;
+        localStorage.setItem('tasks', JSON.stringify(tasks))
         drawTasks();
     })
 
@@ -108,7 +85,7 @@ function drawTaskNode(task) {
     return taskContainer
 
 }
-
+/*
 function drawTaskHTML(task) {
     return `<div class="task" id="task-${task.id}">
         ${
@@ -122,9 +99,9 @@ function drawTaskHTML(task) {
         </label>
         <input id="task-checkbox-${task.id}" data-id="${task.id}" type="checkbox" ${task.done ? 'checked' : ''}>
     </div>`
-}
+} */
 
-function setUpdateEvents() {
+/* function setUpdateEvents() {
     document.querySelectorAll('.task')
         .forEach(taskDom => {
             const icon = taskDom.querySelector('i');
@@ -144,6 +121,8 @@ function setUpdateEvents() {
             })
         })
 }
+ */
+
 
 function editTask(task) {
     const titleInput = document.querySelector('#title')
@@ -156,6 +135,7 @@ function editTask(task) {
         .addEventListener('click', () => {
             task.title = titleInput.value;
             task.priority = priorityCheckbox.checked;
+            localStorage.setItem('tasks', JSON.stringify(tasks))
             drawTasks()
             closeModal()
         });
@@ -169,6 +149,7 @@ function editTask(task) {
 
 function deleteTask(task) {
     tasks = tasks.filter(element => element.id !== task.id)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
     drawTasks();
     closeModal()
 }
@@ -201,6 +182,7 @@ function addTask() {
             }
 
             tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks))
             const taskDom = drawTaskNode(newTask);
             const todoContainer = document.querySelector('#todo-list');
             todoContainer.append(taskDom);
